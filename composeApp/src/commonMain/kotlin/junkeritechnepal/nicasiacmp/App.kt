@@ -1,9 +1,9 @@
 package junkeritechnepal.nicasiacmp
 
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import junkeritechnepal.nicasiacmp.app.di.viewModelModule
-import junkeritechnepal.nicasiacmp.app.navigation.AppNavigationHost
+import junkeritechnepal.nicasiacmp.app.navigation.Navigation3Host
 import junkeritechnepal.nicasiacmp.modules.designSystem.LightColorScheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
@@ -21,7 +21,7 @@ fun App() {
             colorScheme = LightColorScheme
         ) {
             KoinContext {
-                AppNavigationHost()
+                Navigation3Host()
             }
         }
     }

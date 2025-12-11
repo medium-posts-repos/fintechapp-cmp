@@ -34,6 +34,21 @@ fun NavigationRoutes.toRoute(extras: String? = null): PrivateRouteIntent {
     return PrivateRouteIntent(code = this.name, extras = extras)
 }
 
-
 @Serializable @Immutable
 data class PrivateRouteIntent(val title: String? = null, val code: String? = null, val extras: String? = null)
+
+/** Navigation 3 states **/
+
+@Serializable @Immutable
+sealed interface Route
+
+@Serializable @Immutable
+data object LoginRoute: Route
+
+@Serializable @Immutable
+data object DashboardRoute: Route
+
+@Serializable @Immutable
+data object MenuRoute: Route
+
+typealias AppStackNavigator = MutableList<Route>

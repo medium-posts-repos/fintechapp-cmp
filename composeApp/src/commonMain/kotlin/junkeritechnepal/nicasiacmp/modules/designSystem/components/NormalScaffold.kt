@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowLeft
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -23,11 +21,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
-import junkeritechnepal.nicasiacmp.app.navigation.LocalNavController
+import junkeritechnepal.nicasiacmp.app.navigation.AppStackNavigatorProvider
 import junkeritechnepal.nicasiacmp.infrastructure.utils.isIos
 import junkeritechnepal.nicasiacmp.modules.designSystem.appColorPrimary
 import junkeritechnepal.nicasiacmp.modules.designSystem.backgroundColor
-import junkeritechnepal.nicasiacmp.modules.designSystem.primary200
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,14 +34,14 @@ fun NormalScaffold(
     scrollBehavior: TopAppBarScrollBehavior,
     content: @Composable (PaddingValues) -> Unit
 ) {
-    val navController = LocalNavController.current
+    val navigator = AppStackNavigatorProvider.current
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(title = { Text(title, color = MaterialTheme.colorScheme.onPrimary) }, navigationIcon = {
                     IconButton(onClick = {
-                        onBack?.invoke() ?: navController.popBackStack()
+                        onBack?.invoke() ?: navigator.removeLastOrNull()
                     }) {
                         Icon(if(isIos()) Icons.AutoMirrored.Outlined.KeyboardArrowLeft else Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back",
                             tint = MaterialTheme.colorScheme.onPrimary,

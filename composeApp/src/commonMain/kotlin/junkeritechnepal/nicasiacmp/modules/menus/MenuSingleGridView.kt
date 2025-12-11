@@ -21,22 +21,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
-import junkeritechnepal.nicasiacmp.app.navigation.NavigationRoutes
-import junkeritechnepal.nicasiacmp.app.navigation.toRoute
-import junkeritechnepal.nicasiacmp.app.router.Router
+import junkeritechnepal.nicasiacmp.app.navigation.AppStackNavigator
+import junkeritechnepal.nicasiacmp.app.navigation.AppStackNavigatorProvider
+import junkeritechnepal.nicasiacmp.app.navigation.MenuRoute
 import junkeritechnepal.nicasiacmp.infrastructure.utils.deviceWidth
 import junkeritechnepal.nicasiacmp.modules.designSystem.AppTextStyle
 import junkeritechnepal.nicasiacmp.modules.designSystem.AppTypography
-import toJsonString
 
 @Composable
-fun MenuSingleGridView(router: Router? = null, title: String = "Top Services", data: MenuResDto) {
-    data.data?.let { HorizontalGridBox(router, title, items = data.data) }
+fun MenuSingleGridView(title: String = "Top Services", data: MenuResDto) {
+    val navigator = AppStackNavigatorProvider.current
+
+    data.data?.let { HorizontalGridBox(navigator, title, items = data.data) }
 }
 
 @Composable
 fun HorizontalGridBox(
-    router: Router?,
+    navigator: AppStackNavigator,
     title: String,
     items: List<MenuItemDto>,
     rowsPerColumn: Int = 4
@@ -66,7 +67,8 @@ fun HorizontalGridBox(
                             .weight(1f)
                             .background(Color.White, shape = RoundedCornerShape(8.dp))
                             .clickable {
-                                router?.route(NavigationRoutes.MENU_ROUTE.toRoute(item.toJsonString()))
+                                navigator.add(MenuRoute)
+//                                navigator?.route(NavigationRoutes.MENU_ROUTE.toRoute(item.toJsonString()))
                             },
                         contentAlignment = Alignment.Center
                     ) {

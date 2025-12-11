@@ -1,7 +1,6 @@
 package junkeritechnepal.nicasiacmp.modules.menus
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,7 +16,6 @@ import androidx.compose.material.icons.automirrored.sharp.KeyboardArrowRight
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -25,23 +23,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import junkeritechnepal.nicasiacmp.app.navigation.LocalRouter
-import junkeritechnepal.nicasiacmp.app.navigation.NavigationRoutes
+import junkeritechnepal.nicasiacmp.app.navigation.AppStackNavigatorProvider
+import junkeritechnepal.nicasiacmp.app.navigation.MenuRoute
 import junkeritechnepal.nicasiacmp.app.navigation.PrivateRouteIntent
-import junkeritechnepal.nicasiacmp.app.navigation.toRoute
-import junkeritechnepal.nicasiacmp.app.router.Router
 import junkeritechnepal.nicasiacmp.modules.designSystem.AppTextStyle
 import junkeritechnepal.nicasiacmp.modules.designSystem.AppTextStyle.boldNormalDark
-import junkeritechnepal.nicasiacmp.modules.designSystem.backgroundColor
 import nicasia_cmp.composeapp.generated.resources.Res
 import nicasia_cmp.composeapp.generated.resources.nicasisa
 import org.jetbrains.compose.resources.painterResource
-import toJsonString
 import toObject
 
 object MenuViews {
@@ -90,8 +83,7 @@ object MenuViews {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun MenuCardListScreen(intent: PrivateRouteIntent?) {
-        val router = LocalRouter.current
-
+        val navigator = AppStackNavigatorProvider.current
         Scaffold { padding ->
             val dataSource = intent?.extras?.toObject<MenuItemDto>()?.subMenus ?: listOf()
 
@@ -109,7 +101,8 @@ object MenuViews {
                     ) {
                         Column(
                             modifier = Modifier.padding(16.dp).clickable {
-                                router.route(NavigationRoutes.MENU_ROUTE.toRoute(dataSource[item].toJsonString()))
+                                navigator.add(MenuRoute)
+//                                router.route(NavigationRoutes.MENU_ROUTE.toRoute(dataSource[item].toJsonString()))
                             }
                         ) {
                             Text(

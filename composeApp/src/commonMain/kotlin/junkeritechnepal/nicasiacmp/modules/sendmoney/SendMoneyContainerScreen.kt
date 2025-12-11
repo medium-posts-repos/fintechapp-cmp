@@ -14,17 +14,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import junkeritechnepal.nicasiacmp.app.navigation.NavigationRoutes
-import junkeritechnepal.nicasiacmp.app.navigation.toRoute
-import junkeritechnepal.nicasiacmp.app.router.Router
+import junkeritechnepal.nicasiacmp.app.navigation.AppStackNavigatorProvider
+import junkeritechnepal.nicasiacmp.app.navigation.MenuRoute
 import junkeritechnepal.nicasiacmp.modules.designSystem.backgroundColor
 import junkeritechnepal.nicasiacmp.modules.menus.MenuViews
-import toJsonString
 
 @Composable
-fun SendMoneyContainerScreen(router: Router) {
+fun SendMoneyContainerScreen() {
     val sendMoneyViewModel = remember { SendMoneyViewModel() }
     val menuApiRes by sendMoneyViewModel.menuApiResState.collectAsState()
+    val navigator = AppStackNavigatorProvider.current
 
     LaunchedEffect(Unit) {
         sendMoneyViewModel.fetchSendMoneyMenus()
@@ -41,7 +40,8 @@ fun SendMoneyContainerScreen(router: Router) {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     menuApiRes.forEach { item ->
                         MenuViews.NormalIconTitleDescCardView(item, modifier = Modifier.clickable {
-                            router.route(NavigationRoutes.MENU_ROUTE.toRoute(item.toJsonString()))
+//                            router.route(NavigationRoutes.MENU_ROUTE.toRoute(item.toJsonString()))
+                            navigator.add(MenuRoute)
                         })
                     }
                 }

@@ -21,7 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import junkeritechnepal.nicasiacmp.app.router.Router
 import junkeritechnepal.nicasiacmp.modules.accounts.views.AccountView
 import junkeritechnepal.nicasiacmp.modules.cards.AppCardModule
 import junkeritechnepal.nicasiacmp.modules.menus.CardNormalIconDescArrowView
@@ -30,7 +29,7 @@ import junkeritechnepal.nicasiacmp.modules.menus.MenuViews
 import junkeritechnepal.nicasiacmp.modules.menus.menuMockData
 
 @Composable
-fun AccountPageScreen(router: Router) {
+fun AccountPageScreen() {
     val scrollState = rememberScrollState()
 
     Box(
@@ -52,7 +51,7 @@ fun AccountPageScreen(router: Router) {
             AccountView.AccountImageDescView()
             Spacer(modifier = Modifier.height(12.dp))
             AppCardModule.DashboardCardView()
-            MenuSingleGridView(router, title = "", data = menuMockData)
+            MenuSingleGridView(title = "", data = menuMockData)
             MenuViews.CardNormalIconDescArrowView()
             MenuViews.CardNormalIconDescArrowView()
         }

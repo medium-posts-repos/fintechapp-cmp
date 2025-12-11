@@ -20,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import junkeritechnepal.nicasiacmp.app.router.Router
 import junkeritechnepal.nicasiacmp.modules.cards.AppCardModule
 import junkeritechnepal.nicasiacmp.modules.menus.MenuResDto
 import junkeritechnepal.nicasiacmp.modules.menus.MenuSingleGridView
@@ -66,13 +65,11 @@ fun HomeScreen(menuViewModel: MenuViewModel) {
 }
 
 @Composable
-fun HomeScreen1(router: Router, scrollState: ScrollState) {
-    print("Composing HomeScreen1")
-
+fun HomeScreen1(scrollState: ScrollState) {
     val menuViewModel: MenuViewModel = viewModel()
     val menuState by menuViewModel.menuApiResState.collectAsState()
 
-    LaunchedEffect(menuState) {
+    LaunchedEffect(Unit) {
         menuViewModel.fetchPublicMenus()
     }
 
@@ -85,11 +82,11 @@ fun HomeScreen1(router: Router, scrollState: ScrollState) {
             .verticalScroll(scrollState)
     ) {
         AppCardModule.DashboardCardView()
-        MenuSingleGridView(router, title = "Financial Services", data = menuMockData)
+        MenuSingleGridView(title = "Financial Services", data = menuMockData)
         ProductViewModule.HorizontalPhotoScroller()
-        MenuSingleGridView(router, title = "Payments", data = menuMockData)
-        MenuSingleGridView(router, title = "Fone Payments", data = menuMockData)
-        MenuSingleGridView(router, title = "ECommerces", data = menuState)
+        MenuSingleGridView(title = "Payments", data = menuMockData)
+        MenuSingleGridView(title = "Fone Payments", data = menuMockData)
+        MenuSingleGridView(title = "ECommerces", data = menuState)
         Spacer(modifier = Modifier.height(100.dp))
     }
 }

@@ -1,3 +1,4 @@
+
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -14,7 +15,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -61,9 +61,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import junkeritechnepal.nicasiacmp.app.navigation.LocalNavController
-import junkeritechnepal.nicasiacmp.app.navigation.NavigationRoutes
-import junkeritechnepal.nicasiacmp.app.navigation.toRoute
+import junkeritechnepal.nicasiacmp.app.navigation.AppStackNavigatorProvider
+import junkeritechnepal.nicasiacmp.app.navigation.DashboardRoute
 import junkeritechnepal.nicasiacmp.modules.designSystem.AdaptiveLoader
 import junkeritechnepal.nicasiacmp.modules.designSystem.AppTextStyle
 import junkeritechnepal.nicasiacmp.modules.designSystem.AppTypography
@@ -72,7 +71,6 @@ import junkeritechnepal.nicasiacmp.modules.login.LoginViewModel
 import junkeritechnepal.nicasiacmp.modules.login.LoginViewModelExt.dismissCountrySheet
 import junkeritechnepal.nicasiacmp.modules.login.LoginViewModelExt.fetchCountrySheet
 import junkeritechnepal.nicasiacmp.modules.menus.MenuViews
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import nicasia_cmp.composeapp.generated.resources.Res
 import nicasia_cmp.composeapp.generated.resources.bank_logo
@@ -81,12 +79,12 @@ import org.jetbrains.compose.resources.painterResource
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen() {
+    val navigator = AppStackNavigatorProvider.current
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     val loginViewModel by lazy { LoginViewModel() }
     val isLoading by loginViewModel.isLoading.collectAsState()
 
-    val navigator = LocalNavController.current
-
+    println("Login screen rendering...")
     Scaffold(
         containerColor = Color(0xfffafafa),
         topBar = {
@@ -113,7 +111,8 @@ fun LoginScreen() {
 
             item {
                 ScalableButtonClick {
-                    navigator.navigate(NavigationRoutes.DASHBOARD_ROUTE.toRoute())
+//                    navigator.navigate(NavigationRoutes.DASHBOARD_ROUTE.toRoute())
+                    navigator.add(DashboardRoute)
                 }
                 Spacer(modifier = Modifier.height(24.dp))
                 LoginTapView.TapTopLoginView()
@@ -138,7 +137,7 @@ fun LoginScreen() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun LoginNavHeaderView(scrollBehavior: TopAppBarScrollBehavior) {
-    val navigator = LocalNavController.current
+//    val navigator = LocalNavController.current
 
     Column {
         TopAppBar(
@@ -159,7 +158,9 @@ private fun LoginNavHeaderView(scrollBehavior: TopAppBarScrollBehavior) {
                 }
             },
             actions = {
-                IconButton(onClick = { navigator.navigate(NavigationRoutes.LOGIN_SECONDARY_ROUTE.toRoute()) }) {
+                IconButton(onClick = {
+//                    navigator.navigate(NavigationRoutes.LOGIN_SECONDARY_ROUTE.toRoute())
+                }) {
                     Icon(Icons.Outlined.Settings, contentDescription = "Language")
                 }
 
@@ -315,7 +316,7 @@ fun StartJourneyView() {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp), modifier = Modifier.fillMaxWidth()) {
         Text("Start Your Journey With NIC ASIA MoBank", style = AppTextStyle.boldDark(12.sp))
         Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            listOf(1,2,2,2,3,3,3).forEach { _ ->
+            listOf(1,2,2,2,3,3,3,3,5,5,5).forEach { _ ->
                 MenuViews.IconTitleDescCardView()
             }
         }

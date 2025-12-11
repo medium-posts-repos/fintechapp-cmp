@@ -1,8 +1,6 @@
 package junkeritechnepal.nicasiacmp.app.navigation
 
-import DashboardContainerScreen
 import FormViewModel
-import LoginScreen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
@@ -84,13 +82,13 @@ fun NavGraphBuilder.setupNonProtectedRoutes(router: Router) {
         val intent = it.toRoute<PrivateRouteIntent>()
         when(intent.code) {
             NavigationRoutes.LOGIN_ROUTE.name -> {
-                LoginScreen()
+//                LoginScreen()
             }
             NavigationRoutes.LOGIN_SECONDARY_ROUTE.name -> {
                 LoginSecondaryScreen()
             }
             NavigationRoutes.DASHBOARD_ROUTE.name -> {
-                DashboardContainerScreen(router)
+//                DashboardContainerScreen(router)
             }
             NavigationRoutes.DESIGN_SYSTEM.name -> {
                 DesignSystemScreen()

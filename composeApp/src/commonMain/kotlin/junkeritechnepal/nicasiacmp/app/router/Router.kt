@@ -5,9 +5,9 @@ import androidx.navigation.NavHostController
 import junkeritechnepal.nicasiacmp.app.navigation.PrivateRouteIntent
 
 @Immutable
-class Router(private val navigator: NavHostController) {
+class Router(private val navigator: NavHostController? = null) {
 
     fun route(intent: PrivateRouteIntent) {
-        navigator.navigate(intent)
+        navigator?.navigate(intent)
     }
 }

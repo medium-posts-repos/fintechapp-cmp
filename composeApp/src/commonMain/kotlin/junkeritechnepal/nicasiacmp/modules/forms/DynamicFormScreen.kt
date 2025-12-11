@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
@@ -33,7 +32,6 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -46,7 +44,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import junkeritechnepal.nicasiacmp.app.navigation.LocalNavController
+import junkeritechnepal.nicasiacmp.app.navigation.AppStackNavigatorProvider
 import junkeritechnepal.nicasiacmp.app.navigation.PrivateRouteIntent
 import junkeritechnepal.nicasiacmp.modules.designSystem.AppTextStyle
 import junkeritechnepal.nicasiacmp.modules.designSystem.components.NormalScaffold
@@ -58,8 +56,8 @@ import toObject
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DynamicFormScreen(formViewModel: FormViewModel = viewModel(), intent: PrivateRouteIntent) {
-    val targetMenu = intent.extras?.toObject<MenuItemDto>()
+fun DynamicFormScreen(formViewModel: FormViewModel = viewModel(), intent: PrivateRouteIntent?) {
+    val targetMenu = intent?.extras?.toObject<MenuItemDto>()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     NormalScaffold(targetMenu?.name ?: "", scrollBehavior = scrollBehavior) { padding ->
@@ -234,8 +232,7 @@ private fun DropDownField(formField: FormField) {
 
 @Composable
 private fun ProceedCancelButton(formViewModel: FormViewModel) {
-    val navController = LocalNavController.current
-
+    val navigator = AppStackNavigatorProvider.current
     Spacer(Modifier.height(14.dp))
     Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
         Button(
@@ -258,7 +255,7 @@ private fun ProceedCancelButton(formViewModel: FormViewModel) {
             shape = RoundedCornerShape(10.dp),
             colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.Transparent, contentColor = Color.DarkGray),
             onClick = {
-                navController.popBackStack()
+                navigator.removeLastOrNull()
             },
             modifier = Modifier.fillMaxWidth()
         ) {
