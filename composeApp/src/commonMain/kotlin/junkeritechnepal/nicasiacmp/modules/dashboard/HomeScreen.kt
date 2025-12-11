@@ -66,12 +66,10 @@ fun HomeScreen(menuViewModel: MenuViewModel) {
 
 @Composable
 fun HomeScreen1(scrollState: ScrollState) {
-    print("Composing HomeScreen1")
-
     val menuViewModel: MenuViewModel = viewModel()
     val menuState by menuViewModel.menuApiResState.collectAsState()
 
-    LaunchedEffect(menuState) {
+    LaunchedEffect(Unit) {
         menuViewModel.fetchPublicMenus()
     }
 
