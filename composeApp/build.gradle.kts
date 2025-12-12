@@ -45,7 +45,6 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.material.icons.core)
             implementation(libs.ktor.client.cio)
             implementation(libs.ktor.client.core)
@@ -53,12 +52,13 @@ kotlin {
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.kotlinx.serialization.json)
-            implementation(libs.navigation.compose)
             implementation(libs.kamel.image.default)
             implementation(libs.lifecycle.viewmodel.compose)
+            implementation(libs.navigation.compose)
 
+            // navigation 3
+            implementation(libs.androidx.lifecycle.runtime)
             implementation(libs.androidx.navigation3.ui)
-            implementation(libs.androidx.navigation3.runtime)
             implementation(libs.androidx.lifecycle.viewmodel.navigation3)
 
             // Check for the latest stable version
