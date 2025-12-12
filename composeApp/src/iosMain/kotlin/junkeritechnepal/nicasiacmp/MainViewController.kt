@@ -1,5 +1,6 @@
 package junkeritechnepal.nicasiacmp
 
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.window.ComposeUIViewController
@@ -16,5 +17,9 @@ fun MainViewController(nativeViewFactory: NativeViewFactory) = ComposeUIViewCont
     parallelRendering = true
     KoinInitializer().init()
 }) {
-    Navigation3Host()
+    CompositionLocalProvider(
+        LocalNativeViewProvider provides nativeViewFactory
+    ) {
+        Navigation3Host()
+    }
 }

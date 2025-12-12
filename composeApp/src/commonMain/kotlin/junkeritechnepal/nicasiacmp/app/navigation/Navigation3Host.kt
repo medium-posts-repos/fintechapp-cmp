@@ -26,7 +26,7 @@ fun Navigation3Host() {
         }
 
     CompositionLocalProvider(
-        AppStackNavigatorProvider provides backStack,
+        AppStackNavigatorProvider provides backStack
     ) {
         NavDisplay(
             backStack = backStack,
