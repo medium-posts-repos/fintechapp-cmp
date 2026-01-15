@@ -46,7 +46,7 @@ fun HomeScreen(menuViewModel: MenuViewModel) {
     }
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(18.dp, alignment = Alignment.Top),
+        verticalArrangement = Arrangement.spacedBy(8.dp, alignment = Alignment.Top),
         horizontalAlignment = Alignment.Start,
         modifier = Modifier
             .padding(16.dp)
@@ -74,7 +74,7 @@ fun HomeScreen1(scrollState: ScrollState) {
     }
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(18.dp, alignment = Alignment.Top),
+        verticalArrangement = Arrangement.spacedBy(8.dp, alignment = Alignment.Top),
         horizontalAlignment = Alignment.Start,
         modifier = Modifier
             .padding(16.dp)

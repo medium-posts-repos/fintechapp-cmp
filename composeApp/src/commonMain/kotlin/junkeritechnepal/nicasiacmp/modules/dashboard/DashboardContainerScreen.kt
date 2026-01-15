@@ -3,14 +3,9 @@ package junkeritechnepal.nicasiacmp.modules.dashboard
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.WindowInsetsSides
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.rememberPagerState
@@ -89,11 +84,6 @@ private fun DashboardScreen(onQRScanClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(
-                WindowInsets.systemBars
-                    .only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal)
-                    .asPaddingValues()
-            )
     ) {
         Scaffold(
             containerColor = Color(0xfffafafa),
@@ -128,24 +118,6 @@ private fun DashboardScreen(onQRScanClick: () -> Unit) {
                 }
             }
         ) { innerPadding ->
-//            AnimatedContent(
-//                targetState = selectedIndex,
-//                modifier = Modifier.padding(innerPadding),
-//                transitionSpec = {
-//                    fadeIn() togetherWith fadeOut()
-//                }
-//            ) { targetIndex ->
-//                saveableStateHolder.SaveableStateProvider(key = targetIndex) {
-//                    when (targetIndex) {
-//                        0 -> HomeScreen1(scrollState)
-//                        1 -> Text("Current tab $targetIndex")
-//                        3 -> SendMoneyContainerScreen()
-//                        4 -> ProfileContainerScreen()
-//                        else -> Text("Current tab $targetIndex")
-//                    }
-//                }
-//            }
-
             Crossfade(
                 targetState = selectedIndex,
                 animationSpec = tween(durationMillis = 500), // Customize animation duration (e.g., 1 second)

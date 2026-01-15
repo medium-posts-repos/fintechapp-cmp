@@ -35,11 +35,9 @@ fun Navigation3Host() {
                 entry<LoginRoute> {
                     LoginScreen()
                 }
-
                 entry<DashboardRoute> {
                     DashboardContainerScreen()
                 }
-
                 entry<MenuRoute> {
                     DynamicFormScreen(FormViewModel(), intent = null)
                 }
