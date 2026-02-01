@@ -11,13 +11,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowForward
 import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.Phone
 import androidx.compose.material3.Card
@@ -59,6 +56,7 @@ object ProfileScreenModule {
             ) {
                 item { ItemProfileImage() }
                 item { ItemFonePayRewardView() }
+                item { ItemAdaptiveLoader() }
             }
         }
     }
@@ -110,6 +108,13 @@ object ProfileScreenModule {
                     modifier = Modifier.size(24.dp)
                 )
             }
+        }
+    }
+
+    @Composable
+    private fun ItemAdaptiveLoader() {
+        Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.padding(14.dp).fillMaxWidth()) {
+            ProgressLoader.Loader(Modifier.size(24.dp))
         }
     }
 }
