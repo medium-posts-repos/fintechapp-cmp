@@ -51,4 +51,16 @@ data object DashboardRoute: Route
 @Serializable @Immutable
 data object MenuRoute: Route
 
+@Serializable @Immutable
+data object PaymentsRoute: Route
+
+@Serializable @Immutable
+data object CameraRoute: Route
+
+@Serializable @Immutable
+data object TransfersRoute: Route
+
+@Serializable @Immutable
+data object ProfileRoute: Route
+
 typealias AppStackNavigator = MutableList<Route>

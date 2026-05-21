@@ -12,9 +12,9 @@ struct ComposeView: UIViewControllerRepresentable {
 
 struct ContentView: View {
     var body: some View {
-        ComposeView()
+        MainTabView()
             .background(.white)
-            .ignoresSafeArea(.all) // Compose has own keyboard handler
+            .ignoresSafeArea(.keyboard)
     }
 }
 

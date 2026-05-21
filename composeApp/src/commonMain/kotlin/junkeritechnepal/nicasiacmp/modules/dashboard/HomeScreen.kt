@@ -4,9 +4,12 @@ import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -73,11 +76,14 @@ fun HomeScreen1(scrollState: ScrollState) {
         menuViewModel.fetchPublicMenus()
     }
 
+    val statusBarPadding = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
+
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp, alignment = Alignment.Top),
         horizontalAlignment = Alignment.Start,
         modifier = Modifier
-            .padding(16.dp)
+            .padding(top = statusBarPadding)
+            .padding(horizontal = 16.dp)
             .fillMaxWidth()
             .verticalScroll(scrollState)
     ) {

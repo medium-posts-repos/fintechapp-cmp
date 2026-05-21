@@ -12,10 +12,10 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.Send
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.Send
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -25,6 +25,8 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
@@ -41,6 +43,8 @@ import junkeritechnepal.nicasiacmp.modules.designSystem.appColorPrimary
 import junkeritechnepal.nicasiacmp.modules.profile.ProfileScreenModule.ProfileContainerScreen
 import junkeritechnepal.nicasiacmp.modules.sendmoney.SendMoneyContainerScreen
 import kotlinx.coroutines.launch
+
+val LocalUseNativeNavigation = staticCompositionLocalOf { false }
 
 @Composable
 fun DashboardContainerScreen() {
@@ -75,11 +79,12 @@ fun DashboardContainerScreen() {
 }
 
 @Composable
-private fun DashboardScreen(onQRScanClick: () -> Unit) {
+fun DashboardScreen(onQRScanClick: () -> Unit, initialIndex: Int = 0) {
     val items = listOf("Home", "Payments", "", "Transfers", "Profile")
-    var selectedIndex by rememberSaveable { mutableStateOf(0) }
+    var selectedIndex by rememberSaveable { mutableStateOf(initialIndex) }
     val saveableStateHolder = rememberSaveableStateHolder()
     val scrollState = rememberScrollState()
+    val useNativeNavigation = LocalUseNativeNavigation.current
 
     Box(
         modifier = Modifier
@@ -88,32 +93,34 @@ private fun DashboardScreen(onQRScanClick: () -> Unit) {
         Scaffold(
             containerColor = Color(0xfffafafa),
             bottomBar = {
-                NavigationBar(containerColor = Color.White) {
-                    items.forEachIndexed { index, label ->
-                        val isSelected = selectedIndex == index
-                        NavigationBarItem(
-                            colors = NavigationBarItemDefaults.colors(indicatorColor = Color.Transparent),
-                            selected = isSelected && index != 2,
-                            onClick = {
-                                if (index != 2) {
-                                    selectedIndex = index
-                                }
-                            },
-                            icon = {
-                                when (index) {
-                                    0 -> Icon(Icons.Outlined.Home, contentDescription = label)
-                                    1 -> Icon(
-                                        Icons.Outlined.ShoppingCart,
-                                        contentDescription = label
-                                    )
+                if (!useNativeNavigation) {
+                    NavigationBar(containerColor = Color.White) {
+                        items.forEachIndexed { index, label ->
+                            val isSelected = selectedIndex == index
+                            NavigationBarItem(
+                                colors = NavigationBarItemDefaults.colors(indicatorColor = Color.Transparent),
+                                selected = isSelected && index != 2,
+                                onClick = {
+                                    if (index != 2) {
+                                        selectedIndex = index
+                                    }
+                                },
+                                icon = {
+                                    when (index) {
+                                        0 -> Icon(Icons.Outlined.Home, contentDescription = label)
+                                        1 -> Icon(
+                                            Icons.Outlined.ShoppingCart,
+                                            contentDescription = label
+                                        )
 
-                                    2 -> QRScanNavigationBarItem(onClick = onQRScanClick)
-                                    3 -> Icon(Icons.Outlined.Send, contentDescription = label)
-                                    4 -> Icon(Icons.Outlined.Person, contentDescription = label)
-                                }
-                            },
-                            label = { if (index != 2) Text(label, fontSize = 12.sp) }
-                        )
+                                        2 -> QRScanNavigationBarItem(onClick = onQRScanClick)
+                                        3 -> Icon(Icons.AutoMirrored.Outlined.Send, contentDescription = label)
+                                        4 -> Icon(Icons.Outlined.Person, contentDescription = label)
+                                    }
+                                },
+                                label = { if (index != 2) Text(label, fontSize = 12.sp) }
+                            )
+                        }
                     }
                 }
             }
