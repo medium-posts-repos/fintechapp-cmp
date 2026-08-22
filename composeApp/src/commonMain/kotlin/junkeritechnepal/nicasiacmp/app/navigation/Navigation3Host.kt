@@ -2,6 +2,10 @@ package junkeritechnepal.nicasiacmp.app.navigation
 
 import FormViewModel
 import LoginScreen
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
@@ -41,6 +45,33 @@ fun Navigation3Host() {
                 entry<MenuRoute> {
                     DynamicFormScreen(FormViewModel(), intent = null)
                 }
+            },
+            transitionSpec = {
+                slideInHorizontally(
+                    initialOffsetX = { it },
+                    animationSpec = tween(700)
+                ) togetherWith slideOutHorizontally(
+                    targetOffsetX = { -it },
+                    animationSpec = tween(700)
+                )
+            },
+            popTransitionSpec = {
+                slideInHorizontally(
+                    initialOffsetX = { -it },
+                    animationSpec = tween(700)
+                ) togetherWith slideOutHorizontally(
+                    targetOffsetX = { it },
+                    animationSpec = tween(700)
+                )
+            },
+            predictivePopTransitionSpec = {
+                slideInHorizontally(
+                    initialOffsetX = { -it },
+                    animationSpec = tween(700)
+                ) togetherWith slideOutHorizontally(
+                    targetOffsetX = { it },
+                    animationSpec = tween(700)
+                )
             }
         )
     }
